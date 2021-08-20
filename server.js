@@ -1,27 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const dbConfig = require("./database/db");
-const mongoose = require("mongoose");
-
-//Express Route
-const employeesRoute = require("./routes/employees.route");
+const dbConnect = require("./database/db");
 
 // Connecting MongoDB Database
-mongoose.Promise = global.Promise;
-mongoose
-  .connect(dbConfig.db, {
-    useNewUrlParser: true,
-  })
-  .then(
-    () => {
-      console.log("Database successfully connected.");
-    },
-    (error) => {
-      console.log("Could not connect to database:" + error);
-    }
-);
+dbConnect;
 
+//Express Sub Route
+const employeesRoute = require("./routes/employees.route");
+
+// Connecting Express Main Route
 const app = express();
 app.use(bodyParser.json());
 app.use(
